@@ -12,8 +12,6 @@ const Home: React.FC = () => {
     return (
       <h1>Carregando...</h1>
     )
-  } else {
-    console.log(data)
   }
 
   return (
