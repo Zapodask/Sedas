@@ -10,6 +10,7 @@ export const Container = styled.div`
 `
 
 export const Table = styled.table`
+  max-width: 90%;
   border: 1px solid black;
 
   th {
