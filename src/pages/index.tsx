@@ -28,6 +28,9 @@ const Home: React.FC = () => {
         <title>Sedas</title>
       </Head>
         <MaterialTable
+          style={{
+            width: '100vw',
+          }}
           columns={[
             { title: 'Imagem', field: 'image_url',
             render: (row) => (
@@ -39,7 +42,7 @@ const Home: React.FC = () => {
                 }
               ></Image>
             ) },
-            { title: 'Nome', field: 'name', type: 'string' },
+            { title: 'Nome', field: 'name', type: 'string'},
             { title: 'Marca', field: 'brand', type: 'string' },
             { title: 'Tamanho', field: 'size', type: 'string' },
           ]}
