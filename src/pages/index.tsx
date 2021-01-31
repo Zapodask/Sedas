@@ -46,8 +46,8 @@ const Home: React.FC = () => {
           data={data}
           options={{
             paging:true,
-            pageSize:10,
-            pageSizeOptions:[10, 50, 100, 150]
+            pageSize:5,
+            pageSizeOptions:[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 50, 100, 150]
           }}
         />
     </Container>
