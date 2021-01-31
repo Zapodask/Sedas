@@ -43,6 +43,10 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
 
           <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
+          <link
             href="https://fonts.googleapis.com/css?family=Roboto:400,500,700"
             rel="stylesheet"
           />

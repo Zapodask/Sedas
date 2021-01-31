@@ -9,19 +9,6 @@ export const Container = styled.div`
   flex-direction: column;
 `
 
-export const Table = styled.table`
-  max-width: 90%;
-  border: 1px solid black;
-
-  th {
-    border: 1px solid black;
-  };
-  td {
-    border: 1px solid black;
-    padding: 5px;
-  };
-`
-
 export const Image = styled.img`
   width: 100px;
   height: 100px;
