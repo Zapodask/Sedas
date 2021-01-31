@@ -30,6 +30,7 @@ const Home: React.FC = () => {
         <MaterialTable
           style={{
             width: '100vw',
+            height: '100vh'
           }}
           columns={[
             { title: 'Imagem', field: 'image_url',
