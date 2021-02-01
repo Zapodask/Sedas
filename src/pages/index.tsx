@@ -52,7 +52,7 @@ const Home: React.FC = () => {
             icon: 'add',
             tooltip: 'Add User',
             isFreeAction: true,
-            onClick: (event) => {
+            onClick: () => {
               Router.push('/add')
             }
           }
