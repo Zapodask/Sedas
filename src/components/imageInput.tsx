@@ -6,15 +6,13 @@ import React, {
   useState
 } from 'react'
 import { useField } from '@unform/core'
-import { Container, File, Preview } from '@/styles/components/imageInput'
-
 interface Props {
   name: string;
 }
 type InputProps = JSX.IntrinsicElements['input'] & Props;
 const ImageInput: React.FC<InputProps> = ({ name, ...rest }) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { fieldName, registerField, defaultValue, error } = useField(name)
+  const { fieldName, registerField, defaultValue } = useField(name)
   const [preview, setPreview] = useState(defaultValue)
   const handlePreview = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -39,16 +37,10 @@ const ImageInput: React.FC<InputProps> = ({ name, ...rest }) => {
     })
   }, [fieldName, registerField])
   return (
-    <Container>
-      <Preview>
-        {preview && <img src={preview} alt="Preview" width="100%" />}
-      </Preview>
-      <br />
-      <File>
-        <input type="file" ref={inputRef} onChange={handlePreview} {...rest} />
-      </File>
-    </Container>
+    <>
+      {preview && <img src={preview} alt="Preview" width="100" />}
+      <input type="file" ref={inputRef} onChange={handlePreview} {...rest} />
+    </>
   )
 }
-
 export default ImageInput
