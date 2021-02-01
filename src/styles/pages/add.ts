@@ -7,8 +7,6 @@ export const Container = styled.div`
 `
 
 export const Box = styled.div`
-    border-radius: 5px;
-
     button {
         width: 100%;
         height: 40px;
