@@ -5,18 +5,10 @@ import { useFetch } from '@/hooks/useFetch'
 import MaterialTable from 'material-table'
 
 import { Container, Image } from '@/styles/pages/index'
-
-interface Sedas {
-  name: string
-  brand: string
-  size: string
-  image_url: string
-}
+import Router from 'next/router'
 
 const Home: React.FC = () => {
   const { data, error } = useFetch('sedas')
-
-  if (data) console.log(data)
 
   if (error) return <h1>Erro ao carregar</h1>
 
@@ -27,31 +19,45 @@ const Home: React.FC = () => {
       <Head>
         <title>Sedas</title>
       </Head>
-        <MaterialTable
-          style={{
-            width: '100vw',
-            height: '100vh'
-          }}
-          columns={[
-            { title: 'Imagem', field: 'image_url',
+      <MaterialTable
+        title='Sedas'
+        style={{
+          width: '100vw',
+          height: '100%'
+        }}
+        columns={[
+          {
+            title: 'Imagem',
+            field: 'image',
             render: (row) => (
-              <Image
-                src={
-                  row.image_url
-                }
-              ></Image>
-            ) },
-            { title: 'Nome', field: 'name', type: 'string'},
-            { title: 'Marca', field: 'brand', type: 'string' },
-            { title: 'Tamanho', field: 'size', type: 'string' },
-          ]}
-          data={data}
-          options={{
-            paging:true,
-            pageSize:10,
-            pageSizeOptions:[10, 50, 100, 150]
-          }}
-        />
+            <Image
+              src={
+                row.image
+              }
+            ></Image>
+            )
+          },
+          { title: 'Nome', field: 'name', type: 'string' },
+          { title: 'Marca', field: 'brand', type: 'string' },
+          { title: 'Tamanho', field: 'size', type: 'string' }
+        ]}
+        data={data}
+        options={{
+          paging: true,
+          pageSize: 10,
+          pageSizeOptions: [10, 50, 100, 150]
+        }}
+        actions={[
+          {
+            icon: 'add',
+            tooltip: 'Add User',
+            isFreeAction: true,
+            onClick: (event) => {
+              Router.push('/add')
+            }
+          }
+        ]}
+      />
     </Container>
   )
 }

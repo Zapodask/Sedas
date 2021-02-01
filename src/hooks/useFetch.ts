@@ -1,12 +1,12 @@
-import useSWR from "swr";
+import useSWR from 'swr'
 
-export function useFetch(url: string, revalidateOnFocus: boolean = false) {
+export const useFetch = (url: string, revalidateOnFocus = false) => {
   const { data, error } = useSWR(url, async (url) => {
-    const response = await fetch('/api/' + url);
-    const data = await response.json();
+    const response = await fetch('/api/' + url)
+    const data = await response.json()
 
-    return data;
-  }, {revalidateOnFocus });
+    return data
+  }, { revalidateOnFocus })
 
-  return { data, error };
+  return { data, error }
 }

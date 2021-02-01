@@ -12,6 +12,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         res.status(200).json(data)
         break
+      case 'POST':
+        const { name, brand, image, size, key } = await JSON.parse(req.body)
+
+        if (key === process.env.KEY) {
+          const response = await db.collection('sedas').insertOne({ name, brand, image, size })
+
+          res.status(200).json(response)
+        } else {
+          res.status(409).json({ message: 'Chave invalida.' })
+        }
+
+        break
       default:
         res.setHeader('Allow', ['GET', 'PUT'])
         res.status(405).end(`Method ${method} Not Allowed`)
@@ -21,4 +33,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default handler;
+export default handler
