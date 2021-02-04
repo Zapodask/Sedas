@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 
 import { Form } from '@unform/web'
@@ -8,17 +8,21 @@ import { Container, Box, Input } from '@/styles/pages/add'
 import Router from 'next/router'
 
 const Add = () => {
+  const [img, setImg] = useState('')
+
   function toBase64 (image: any) {
     const reader = new FileReader()
     reader.readAsDataURL(image)
     reader.onloadend = () => {
-      return String(reader.result)
+      setImg(String(reader.result))
     }
   }
 
   async function handleSubmit (data: any) {
     if (data.image) {
-      data.image = await toBase64(data.image)
+      await toBase64(data.image)
+
+      data.image = img
     }
 
     fetch('/api/sedas', {
