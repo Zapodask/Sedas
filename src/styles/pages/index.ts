@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Modal as modal } from '@material-ui/core'
 
 export const Container = styled.div`
   width: 100vw;
@@ -12,4 +13,34 @@ export const Container = styled.div`
 export const Image = styled.img`
   width: 100px;
   height: 100px;
+`
+
+export const Modal = styled(modal)`
+    display: grid;
+    place-items: center;
+
+    main {
+      width: 100%;
+      max-width: 300px;
+      background: #ffffff;
+
+      padding: 5px;
+      border: 1px solid black;
+      border-radius: 5px;
+
+      input {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-bottom: 5px
+      }
+
+      button {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 5px;
+      }
+    }
 `

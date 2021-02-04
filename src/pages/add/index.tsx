@@ -1,35 +1,39 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Head from 'next/head'
 
 import { Form } from '@unform/web'
 import ImageInput from '@/components/imageInput'
 
 import { Container, Box, Input } from '@/styles/pages/add'
+import Router from 'next/router'
 
 const Add = () => {
-  const [img, setImg] = useState('')
-
   function toBase64 (image: any) {
     const reader = new FileReader()
     reader.readAsDataURL(image)
     reader.onloadend = () => {
-      setImg(String(reader.result))
+      return String(reader.result)
     }
   }
 
   async function handleSubmit (data: any) {
     if (data.image) {
-      await toBase64(data.image)
-
-      data.image = img
+      data.image = await toBase64(data.image)
     }
 
     fetch('/api/sedas', {
       method: 'POST',
       body: JSON.stringify(data)
     }).then(function (response) {
-      if (response.status === 409) {
-        alert('Chave inválida.')
+      switch (response.status) {
+        case 200:
+          Router.push('/')
+          break
+        case 409:
+          alert('Chave inválida.')
+          break
+        default:
+          alert('Erro ao cadastrar.')
       }
     })
   }

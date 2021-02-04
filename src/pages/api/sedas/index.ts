@@ -20,12 +20,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
           res.status(200).json(response)
         } else {
-          res.status(409).json({ message: 'Chave invalida.' })
+          res.status(409).json({ message: 'Chave inválida.' })
         }
 
         break
       default:
-        res.setHeader('Allow', ['GET', 'PUT'])
         res.status(405).end(`Method ${method} Not Allowed`)
     }
   } catch (err) {
