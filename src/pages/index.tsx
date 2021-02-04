@@ -19,14 +19,14 @@ interface Data {
 const Home: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
   const [oldData, setOldData] = useState<Data>()
-  const [newData, setNewData] = useState<Data>()
+  // const [newData, setNewData] = useState<Data>()
   const [type, setType] = useState<string>('')
   const [key, setKey] = useState<string>('')
 
   const handleSubmit = () => {
     fetch('/api/sedas/' + oldData?._id, {
       method: type,
-      body: JSON.stringify({ newData, key: key })
+      body: JSON.stringify({ key: key })
     }).then(function (response) {
       switch (response.status) {
         case 200:
