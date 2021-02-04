@@ -30,7 +30,7 @@ const Home: React.FC = () => {
     }).then(function (response) {
       switch (response.status) {
         case 200:
-          console.log(response)
+          Router.push('/')
           break
         case 409:
           alert('Chave inválida.')
