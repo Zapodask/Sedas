@@ -6,7 +6,7 @@ export const useFetch = (url: string, revalidateOnFocus = false) => {
     const data = await response.json()
 
     return data
-  }, { revalidateOnFocus, refreshInterval: 1000 })
+  }, { revalidateOnFocus })
 
   return { data, error }
 }
