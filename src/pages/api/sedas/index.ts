@@ -13,8 +13,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(200).json(data)
         break
       case 'POST':
-        const { name, brand, image, size, key } = await JSON.parse(req.body)
-
+        const { name, brand, image, size, key, img } = await JSON.parse(req.body)
+        console.log(img)
         if (key === process.env.KEY) {
           const response = await db.collection('sedas').insertOne({ name, brand, image, size })
 

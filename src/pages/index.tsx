@@ -17,6 +17,12 @@ interface Data {
 }
 
 const Home: React.FC = () => {
+  const { data, error } = useFetch('sedas')
+
+  if (error) return <h1>Erro ao carregar</h1>
+
+  if (!data) return <h1>Carregando...</h1>
+
   const [showModal, setShowModal] = useState<boolean>(false)
   const [oldData, setOldData] = useState<Data>()
   // const [newData, setNewData] = useState<Data>()
@@ -30,7 +36,6 @@ const Home: React.FC = () => {
     }).then(function (response) {
       switch (response.status) {
         case 200:
-          Router.push('/')
           break
         case 409:
           alert('Chave inválida.')
@@ -42,12 +47,6 @@ const Home: React.FC = () => {
 
     setShowModal(false)
   }
-
-  const { data, error } = useFetch('sedas')
-
-  if (error) return <h1>Erro ao carregar</h1>
-
-  if (!data) return <h1>Carregando...</h1>
 
   return (
     <Container>
