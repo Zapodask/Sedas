@@ -5,7 +5,7 @@ import Head from 'next/head'
 import { useFetch } from '@/hooks/useFetch'
 import MaterialTable from 'material-table'
 
-import { Container, Image, Modal } from '@/styles/pages/index'
+import { Container, Image, ConfirmModal, ImageModal } from '@/styles/pages/index'
 import Router from 'next/router'
 
 interface Data {
@@ -17,11 +17,13 @@ interface Data {
 }
 
 const Home: React.FC = () => {
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const [confirmModal, setConfirmModal] = useState<boolean>(false)
   const [oldData, setOldData] = useState<Data>()
   // const [newData, setNewData] = useState<Data>()
   const [type, setType] = useState<string>('')
   const [key, setKey] = useState<string>('')
+  const [imageModal, setImageModal] = useState<boolean>(false)
+  const [imageModalContent, setImageModalContent] = useState<string>('')
 
   const handleSubmit = () => {
     fetch('/api/sedas/' + oldData?._id, {
@@ -39,7 +41,13 @@ const Home: React.FC = () => {
       }
     })
 
-    setShowModal(false)
+    setConfirmModal(false)
+  }
+
+  const openImage = async (image: string) => {
+    await setImageModalContent(image)
+
+    setImageModal(true)
   }
 
   const { data, error } = useFetch('sedas')
@@ -65,11 +73,9 @@ const Home: React.FC = () => {
             field: 'image',
             editable: 'never',
             render: (row) => (
-            <Image
-              src={
-                row.image
-              }
-            ></Image>
+              <Image onClick={() => openImage(row.image)}>
+                <img src={row.image} />
+              </Image>
             )
           },
           { title: 'Nome', field: 'name', type: 'string' },
@@ -99,7 +105,7 @@ const Home: React.FC = () => {
                 setType('PUT')
                 setOldData(oldData)
                 setNewData(newData)
-                setShowModal(true)
+                setConfirmModal(true)
 
                 resolve(true)
               }, 1000)
@@ -109,20 +115,25 @@ const Home: React.FC = () => {
               setTimeout(() => {
                 setType('DELETE')
                 setOldData(oldData)
-                setShowModal(true)
+                setConfirmModal(true)
 
                 resolve(true)
               }, 1000)
             })
         }}
       />
-      <Modal open={showModal} onClose={() => setShowModal(false)} >
+
+      <ConfirmModal open={confirmModal} onClose={() => setConfirmModal(false)} >
         <main>
           <h1>Chave:</h1>
           <input onChange={e => setKey(e.target.value)} /><br />
           <button onClick={handleSubmit} >Submit</button>
         </main>
-      </Modal>
+      </ConfirmModal>
+
+      <ImageModal open={imageModal} onClose={() => setImageModal(false)} >
+        <img src={imageModalContent} />
+      </ImageModal>
     </Container>
   )
 }

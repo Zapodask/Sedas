@@ -10,12 +10,18 @@ export const Container = styled.div`
   flex-direction: column;
 `
 
-export const Image = styled.img`
+export const Image = styled.div`
+  border: 1px solid black;
   width: 100px;
   height: 100px;
+
+  img {
+  width: 100%;
+  height: 100%;
+  }
 `
 
-export const Modal = styled(modal)`
+export const ConfirmModal = styled(modal)`
     display: grid;
     place-items: center;
 
@@ -42,5 +48,14 @@ export const Modal = styled(modal)`
         border: 1px solid black;
         border-radius: 5px;
       }
+    }
+`
+
+export const ImageModal = styled(modal)`
+    display: grid;
+    place-items: center;
+
+    img {
+      width: 85vw;
     }
 `
