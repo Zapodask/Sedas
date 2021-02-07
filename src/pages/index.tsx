@@ -72,9 +72,7 @@ const Home: React.FC = () => {
             field: 'image',
             editable: 'never',
             render: (row) => (
-              <Image onClick={() => openImage(row.image)}>
-                <img src={row.image} />
-              </Image>
+              <Image onClick={() => openImage(row.image)}src={row.image} />
             )
           },
           { title: 'Nome', field: 'name', type: 'string' },
