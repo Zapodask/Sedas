@@ -13,7 +13,6 @@ export const Container = styled.div`
 export const Image = styled.div`
   border: 1px solid black;
   width: 100px;
-  height: 100px;
 
   img {
   width: 100%;
