@@ -19,7 +19,6 @@ interface Data {
 const Home: React.FC = () => {
   const [confirmModal, setConfirmModal] = useState<boolean>(false)
   const [oldData, setOldData] = useState<Data>()
-  // const [newData, setNewData] = useState<Data>()
   const [type, setType] = useState<string>('')
   const [key, setKey] = useState<string>('')
   const [imageModal, setImageModal] = useState<boolean>(false)
@@ -99,17 +98,6 @@ const Home: React.FC = () => {
           }
         ]}
         editable={{
-          /* onRowUpdate: (oldData: Data, newData) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                setType('PUT')
-                setOldData(oldData)
-                setNewData(newData)
-                setConfirmModal(true)
-
-                resolve(true)
-              }, 1000)
-            }), */
           onRowDelete: (oldData: Data) =>
             new Promise((resolve) => {
               setTimeout(() => {
