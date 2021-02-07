@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     switch (method) {
       case 'GET':
-        const data = await db.collection('sedas').find().toArray()
+        const data = await db.collection('sedas').find().sort({ _id: -1 }).limit(10).toArray()
 
         res.status(200).json(data)
         break
@@ -35,9 +35,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '1000gb'
-    },
-    responseParser: {
       sizeLimit: '1000gb'
     }
   }
