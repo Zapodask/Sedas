@@ -13,8 +13,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(200).json(data)
         break
       case 'POST':
-        const { name, brand, image, size, key, img } = await JSON.parse(req.body)
-        console.log(img)
+        const { name, brand, image, size, key } = await JSON.parse(req.body)
+        console.log(image)
         if (key === process.env.KEY) {
           const response = await db.collection('sedas').insertOne({ name, brand, image, size })
 
@@ -29,6 +29,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } catch (err) {
     res.status(500).json({ statusCode: 500, message: err.message })
+  }
+}
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '1000mb'
+    }
   }
 }
 
