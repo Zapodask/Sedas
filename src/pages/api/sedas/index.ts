@@ -36,6 +36,9 @@ export const config = {
   api: {
     bodyParser: {
       sizeLimit: '1000gb'
+    },
+    responseParser: {
+      sizeLimit: '1000gb'
     }
   }
 }
