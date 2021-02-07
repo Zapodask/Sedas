@@ -13,6 +13,7 @@ export const Container = styled.div`
 export const Image = styled.img`
   border: 1px solid black;
   width: 100px;
+  height: 100px;
 `
 
 export const ConfirmModal = styled(modal)`
@@ -51,5 +52,6 @@ export const ImageModal = styled(modal)`
 
     img {
       width: 85vw;
+      height: 85vh;
     }
 `
