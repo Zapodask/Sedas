@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { connectToDatabase } from '@/services/mongodb'
+import { connectToDatabase } from '@/services/api/mongodb'
+
+import Pagination from '@/services/api/pagination'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -8,7 +10,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     switch (method) {
       case 'GET':
-        const data = await db.collection('sedas').find().sort({ _id: -1 }).limit(10).toArray()
+        const { page } = req.query
+        const data = await Pagination('sedas', page, 10)
 
         res.status(200).json(data)
         break

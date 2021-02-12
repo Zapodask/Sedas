@@ -18,15 +18,17 @@ if (!dbName) {
   )
 }
 
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+
 export async function connectToDatabase () {
+  if (!client.isConnected()) await client.connect()
+
   if (cachedClient && cachedDb) {
     return { client: cachedClient, db: cachedDb }
   }
-
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
 
   const db = await client.db(dbName)
 

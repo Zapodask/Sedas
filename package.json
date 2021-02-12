@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@unform/core": "^2.1.4",
     "@unform/web": "^2.1.4",
     "archetype-js": "^0.6.1",
-    "material-table": "^1.69.2",
     "mongodb": "^3.6.3",
     "next": "latest",
     "react": "^16.12.0",

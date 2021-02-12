@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { connectToDatabase } from '@/services/mongodb'
+import { connectToDatabase } from '@/services/api/mongodb'
 
 import { ObjectId } from 'mongodb'
 import Archetype from 'archetype-js'

@@ -1,12 +1,18 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import { useFetch } from '@/hooks/useFetch'
-import MaterialTable from 'material-table'
+import { Container, Button, Table, PageForm, Image, ConfirmModal, ImageModal } from '@/styles/pages/index'
 
-import { Container, Image, ConfirmModal, ImageModal } from '@/styles/pages/index'
-import Router from 'next/router'
+import { Button as MButton, IconButton } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
+
+import AddIcon from '@material-ui/icons/Add'
+import Link from 'next/link'
+
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 
 interface Data {
   _id: string
@@ -18,14 +24,15 @@ interface Data {
 
 const Home: React.FC = () => {
   const [confirmModal, setConfirmModal] = useState<boolean>(false)
-  const [oldData, setOldData] = useState<Data>()
+  const [id, setId] = useState<string>()
   const [type, setType] = useState<string>('')
   const [key, setKey] = useState<string>('')
   const [imageModal, setImageModal] = useState<boolean>(false)
   const [imageModalContent, setImageModalContent] = useState<string>('')
+  const [page, setPage] = useState<number>(1)
 
-  const handleSubmit = () => {
-    fetch('/api/sedas/' + oldData?._id, {
+  const handleDelete = () => {
+    fetch('/api/sedas/' + id, {
       method: type,
       body: JSON.stringify({ key: key })
     }).then(function (response) {
@@ -36,7 +43,7 @@ const Home: React.FC = () => {
           alert('Chave inválida.')
           break
         default:
-          alert('Erro ao ' + (type === 'DELETE' ? 'deletar' : 'atualizar') + '.')
+          alert('Erro ao deletar.')
       }
     })
 
@@ -49,7 +56,13 @@ const Home: React.FC = () => {
     setImageModal(true)
   }
 
-  const { data, error } = useFetch('sedas')
+  const { data, error, mutate, isValidating } = useFetch(`sedas?page=${page}`)
+
+  useEffect(() => {
+    mutate()
+  }, [page])
+
+  if (isValidating === true) return <h1>Carregando...</h1>
 
   if (error) return <h1>Erro ao carregar</h1>
 
@@ -60,60 +73,73 @@ const Home: React.FC = () => {
       <Head>
         <title>Sedas</title>
       </Head>
-      <MaterialTable
-        title='Sedas'
-        style={{
-          width: '100vw',
-          height: '100%'
-        }}
-        columns={[
-          {
-            title: 'Imagem',
-            field: 'image',
-            editable: 'never',
-            render: (row) => (
-              <Image onClick={() => openImage(row.image)}src={row.image} />
-            )
-          },
-          { title: 'Nome', field: 'name', type: 'string' },
-          { title: 'Marca', field: 'brand', type: 'string' },
-          { title: 'Tamanho', field: 'size', type: 'string' }
-        ]}
-        data={data}
-        options={{
-          paging: true,
-          pageSize: 10,
-          pageSizeOptions: [10, 50, 100, 150]
-        }}
-        actions={[
-          {
-            icon: 'add',
-            tooltip: 'Add User',
-            isFreeAction: true,
-            onClick: () => {
-              Router.push('/add')
-            }
-          }
-        ]}
-        editable={{
-          onRowDelete: (oldData: Data) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                setType('DELETE')
-                setOldData(oldData)
-                setConfirmModal(true)
+      <header>
+        <Link href='/add' >
+            <Button>
+              <AddIcon />
+            </Button>
+        </Link>
+      </header>
 
-                resolve(true)
-              }, 1000)
-            })
-        }}
-      />
+      <Table>
+        <tr>
+          <th>Actions</th>
+          <th>Imagem</th>
+          <th>Nome</th>
+          <th>Marca</th>
+          <th>Tamanho</th>
+        </tr>
+        {data.map((seda: Data) =>
+          <tr key={seda._id}>
+            <td>
+              <MButton
+                variant='contained'
+                color='secondary'
+                startIcon={<DeleteIcon />}
+                onClick={() => {
+                  setType('DELETE')
+                  setId(seda._id)
+                  setConfirmModal(true)
+                }}
+              >
+                Delete
+              </MButton>
+            </td>
+            <td>
+              <Image onClick={() => openImage(seda.image)} src={seda.image} />
+            </td>
+            <td>
+              {seda.name}
+            </td>
+            <td>
+              {seda.brand}
+            </td>
+            <td>
+              {seda.size}
+            </td>
+          </tr>
+        )}
+      </Table>
+
+      <PageForm>
+        <div>
+          <IconButton onClick={() => setPage(prevState => prevState - 1)} disabled={page === 1} >
+            <ArrowBackIosIcon />
+          </IconButton>
+
+          <h2>{page}</h2>
+
+          <IconButton onClick={() => setPage(prevState => prevState + 1)} disabled={data.length < 10} >
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </div>
+      </PageForm>
 
       <ConfirmModal open={confirmModal} onClose={() => setConfirmModal(false)} >
         <main>
           <h1>Chave:</h1>
           <input onChange={e => setKey(e.target.value)} /><br />
-          <button onClick={handleSubmit} >Submit</button>
+          <button onClick={handleDelete} >Submit</button>
         </main>
       </ConfirmModal>
 

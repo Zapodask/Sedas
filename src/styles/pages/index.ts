@@ -2,12 +2,58 @@ import styled from 'styled-components'
 import { Modal as modal } from '@material-ui/core'
 
 export const Container = styled.div`
-  width: 100vw;
+  max-width: 100vw;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  header {
+    width: 100%;
+    height: 50px;
+    display: grid;
+    align-items: right;
+  }
+`
+
+export const Button = styled.button`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: green;
+  border: none;
+  margin-left: auto;
+`
+
+export const Table = styled.table`
+  width: 100%;
+
+  tr {
+
+  };
+
+  th {
+    height: 50px;
+  border: 1px solid black;
+  };
+
+  td {
+    border: 1px solid black;
+  };
+`
+
+export const PageForm = styled.div`
+  width: 100%;
+  height: 50px;
+  display: grid;
+  place-items: center;
+
+  div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+  }
 `
 
 export const Image = styled.img`
