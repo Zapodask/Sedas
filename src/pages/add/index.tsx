@@ -9,8 +9,17 @@ import Router from 'next/router'
 
 import ToBase64 from '@/services/toBase64'
 
+interface Data {
+  image: unknown | string
+  brand: string
+  series: string
+  type: string
+  size: string
+  key: string
+}
+
 const Add = () => {
-  async function handleSubmit (data: any) {
+  async function handleSubmit (data: Data) {
     if (data.image) {
       data.image = await ToBase64(data.image)
     }
@@ -42,10 +51,12 @@ const Add = () => {
           <h1>Adicionar seda</h1>
           <Form onSubmit={handleSubmit}>
               <ImageInput name='image' /><br />
-              <p>Nome:</p>
-              <Input name='name' /><br />
               <p>Marca:</p>
               <Input name='brand' /><br />
+              <p>Série:</p>
+              <Input name='series' /><br />
+              <p>Tipo:</p>
+              <Input name='type' /><br />
               <p>Tamanho:</p>
               <Input name='size' /><br />
               <p>Chave:</p>

@@ -17,8 +17,9 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 interface Data {
   _id: string
   image: string
-  name: string
   brand: string
+  series: string
+  type: string
   size: string
 }
 
@@ -85,8 +86,9 @@ const Home: React.FC = () => {
         <tr>
           <th>Actions</th>
           <th>Imagem</th>
-          <th>Nome</th>
           <th>Marca</th>
+          <th>Série</th>
+          <th>Tipo</th>
           <th>Tamanho</th>
         </tr>
         {data.map((seda: Data) =>
@@ -109,10 +111,13 @@ const Home: React.FC = () => {
               <Image onClick={() => openImage(seda.image)} src={seda.image} />
             </td>
             <td>
-              {seda.name}
+              {seda.brand}
             </td>
             <td>
-              {seda.brand}
+              {seda.series}
+            </td>
+            <td>
+              {seda.type}
             </td>
             <td>
               {seda.size}
