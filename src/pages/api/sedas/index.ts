@@ -8,13 +8,35 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     switch (method) {
       case 'GET':
-        const { page } = req.query
+        const { page, search } = req.query
 
         const p: any = page
         const limit = 10
         const skips = limit * (p - 1)
 
-        const data = await db.collection('sedas').find().sort({ _id: -1 }).limit(limit).skip(skips).toArray()
+        const s: any = search
+        const Search = JSON.parse(String(s))
+
+        try {
+          if (Search.brand === '') {
+            delete Search.brand
+          }
+          if (Search.series === '') {
+            delete Search.series
+          }
+          if (Search.type === '') {
+            delete Search.type
+          }
+          if (Search.size === '') {
+            delete Search.size
+          }
+
+          Search.size = { $regex: /Search.size$/ }
+        } catch (error) {
+          console.log(error)
+        }
+
+        const data = await db.collection('sedas').find(Search).sort({ _id: -1 }).limit(limit).skip(skips).toArray()
 
         res.status(200).json(data)
         break

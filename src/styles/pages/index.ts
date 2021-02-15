@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import { Modal as modal } from '@material-ui/core'
+import { Form as Unform } from '@unform/web'
+import { Input as cInput } from '@/components/input'
 
 export const Container = styled.div`
   max-width: 100vw;
@@ -26,6 +28,11 @@ export const Button = styled.button`
   margin-left: auto;
 `
 
+export const Form = styled(Unform)`
+  width: 100%;
+  height: 100%;
+`
+
 export const Table = styled.table`
   width: 100%;
 
@@ -35,12 +42,22 @@ export const Table = styled.table`
 
   th {
     height: 50px;
-  border: 1px solid black;
+    border: 1px solid black;
+
+    button {
+      width: 90%;
+      height: 90%;
+    }
   };
 
   td {
     border: 1px solid black;
   };
+`
+
+export const Input = styled(cInput)`
+  width: 100%;
+  height: 100%;
 `
 
 export const PageForm = styled.div`

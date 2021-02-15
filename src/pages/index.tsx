@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import { useFetch } from '@/hooks/useFetch'
-import { Container, Button, Table, PageForm, Image, ConfirmModal, ImageModal } from '@/styles/pages/index'
+import { Container, Button, Form, Table, Input, PageForm, Image, ConfirmModal, ImageModal } from '@/styles/pages/index'
 
 import { Button as MButton, IconButton } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -23,6 +23,13 @@ interface Data {
   size: string
 }
 
+interface Search {
+  brand: string
+  series: string
+  type: string
+  size: string
+}
+
 const Home: React.FC = () => {
   const [confirmModal, setConfirmModal] = useState<boolean>(false)
   const [id, setId] = useState<string>()
@@ -31,6 +38,25 @@ const Home: React.FC = () => {
   const [imageModal, setImageModal] = useState<boolean>(false)
   const [imageModalContent, setImageModalContent] = useState<string>('')
   const [page, setPage] = useState<number>(1)
+  const [search, setSearch] = useState<Search | string>('')
+
+  const openImage = async (image: string) => {
+    await setImageModalContent(image)
+
+    setImageModal(true)
+  }
+
+  const { data, error, mutate, isValidating } = useFetch(`sedas?page=${page}&&search=${JSON.stringify(search)}`)
+
+  useEffect(() => {
+    mutate()
+  }, [page, search])
+
+  if (isValidating === true) return <h1>Carregando...</h1>
+
+  if (error) return <h1>Erro ao carregar</h1>
+
+  if (!data) return <h1>Carregando...</h1>
 
   const handleDelete = () => {
     fetch('/api/sedas/' + id, {
@@ -39,6 +65,7 @@ const Home: React.FC = () => {
     }).then(function (response) {
       switch (response.status) {
         case 200:
+          mutate()
           break
         case 409:
           alert('Chave inválida.')
@@ -50,24 +77,6 @@ const Home: React.FC = () => {
 
     setConfirmModal(false)
   }
-
-  const openImage = async (image: string) => {
-    await setImageModalContent(image)
-
-    setImageModal(true)
-  }
-
-  const { data, error, mutate, isValidating } = useFetch(`sedas?page=${page}`)
-
-  useEffect(() => {
-    mutate()
-  }, [page])
-
-  if (isValidating === true) return <h1>Carregando...</h1>
-
-  if (error) return <h1>Erro ao carregar</h1>
-
-  if (!data) return <h1>Carregando...</h1>
 
   return (
     <Container>
@@ -82,49 +91,69 @@ const Home: React.FC = () => {
         </Link>
       </header>
 
-      <Table>
-        <tr>
-          <th>Actions</th>
-          <th>Imagem</th>
-          <th>Marca</th>
-          <th>Série</th>
-          <th>Tipo</th>
-          <th>Tamanho</th>
-        </tr>
-        {data.map((seda: Data) =>
-          <tr key={seda._id}>
-            <td>
-              <MButton
-                variant='contained'
-                color='secondary'
-                startIcon={<DeleteIcon />}
-                onClick={() => {
-                  setType('DELETE')
-                  setId(seda._id)
-                  setConfirmModal(true)
-                }}
-              >
-                Delete
-              </MButton>
-            </td>
-            <td>
-              <Image onClick={() => openImage(seda.image)} src={seda.image} />
-            </td>
-            <td>
-              {seda.brand}
-            </td>
-            <td>
-              {seda.series}
-            </td>
-            <td>
-              {seda.type}
-            </td>
-            <td>
-              {seda.size}
-            </td>
+      <Form onSubmit={(data: Search) => setSearch(data)}>
+        <Table>
+          <tr>
+            <th>Actions</th>
+            <th>Imagem</th>
+            <th>Marca</th>
+            <th>Série</th>
+            <th>Tipo</th>
+            <th>Tamanho</th>
           </tr>
-        )}
-      </Table>
+          <tr>
+            <th>
+              <button type='submit'>Pesquisar</button>
+            </th>
+            <th />
+            <th>
+              <Input name='brand' placeholder='Pesquisar' />
+            </th>
+            <th>
+              <Input name='series' placeholder='Pesquisar' />
+            </th>
+            <th>
+              <Input name='type' placeholder='Pesquisar' />
+            </th>
+            <th>
+              <Input name='size' placeholder='Pesquisar' />
+            </th>
+          </tr>
+          {data.map((seda: Data) =>
+            <tr key={seda._id}>
+              <td>
+                <MButton
+                  variant='contained'
+                  color='secondary'
+                  startIcon={<DeleteIcon />}
+                  onClick={() => {
+                    setType('DELETE')
+                    setId(seda._id)
+                    setConfirmModal(true)
+                  }}
+                >
+                  Delete
+                </MButton>
+              </td>
+              <td>
+                <Image onClick={() => openImage(seda.image)} src={seda.image} />
+              </td>
+              <td>
+                {seda.brand}
+              </td>
+              <td>
+                {seda.series}
+              </td>
+              <td>
+                {seda.type}
+              </td>
+              <td>
+                {seda.size}
+              </td>
+            </tr>
+          )}
+        </Table>
+      </Form>
 
       <PageForm>
         <div>
