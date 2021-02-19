@@ -15,8 +15,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       case 'DELETE':
         if (key === process.env.KEY) {
           await db.collection('sedas').deleteOne({ _id: Archetype.to(id, ObjectId) })
-            .then(result => console.log(`Deleted ${result.deletedCount} item.`))
-            .catch(err => console.error(`Delete failed with error: ${err}`))
 
           res.status(200)
         } else {

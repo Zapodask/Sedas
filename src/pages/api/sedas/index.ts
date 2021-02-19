@@ -14,26 +14,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const limit = 10
         const skips = limit * (p - 1)
 
-        const s: any = search
-        const Search = JSON.parse(String(s))
+        const Search = JSON.parse(String(search as any))
 
-        try {
-          if (Search.brand === '') {
-            delete Search.brand
-          }
-          if (Search.series === '') {
-            delete Search.series
-          }
-          if (Search.type === '') {
-            delete Search.type
-          }
-          if (Search.size === '') {
-            delete Search.size
-          }
-
-          Search.size = { $regex: /Search.size$/ }
-        } catch (error) {
-          console.log(error)
+        if (Search.brand === '') {
+          delete Search.brand
+        } else {
+          Search.brand = { $regex: `${Search.brand}` }
+        }
+        if (Search.series === '') {
+          delete Search.series
+        } else {
+          Search.series = { $regex: `${Search.series}` }
+        }
+        if (Search.type === '') {
+          delete Search.type
+        } else {
+          Search.type = { $regex: `${Search.type}` }
+        }
+        if (Search.size === '') {
+          delete Search.size
+        } else {
+          Search.size = { $regex: `${Search.size}` }
         }
 
         const data = await db.collection('sedas').find(Search).sort({ _id: -1 }).limit(limit).skip(skips).toArray()
