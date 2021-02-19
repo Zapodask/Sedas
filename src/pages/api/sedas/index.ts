@@ -17,25 +17,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const Search = JSON.parse(String(search as any))
         console.log(Search)
 
-        if (Search.brand === '') {
-          delete Search.brand
-        } else {
-          Search.brand = { $regex: `${Search.brand}` }
-        }
-        if (Search.series === '') {
-          delete Search.series
-        } else {
-          Search.series = { $regex: `${Search.series}` }
-        }
-        if (Search.type === '') {
-          delete Search.type
-        } else {
-          Search.type = { $regex: `${Search.type}` }
-        }
-        if (Search.size === '') {
-          delete Search.size
-        } else {
-          Search.size = { $regex: `${Search.size}` }
+        if (Search !== null) {
+          if (Search.brand === '') {
+            delete Search.brand
+          } else {
+            Search.brand = { $regex: `${Search.brand}` }
+          }
+          if (Search.series === '') {
+            delete Search.series
+          } else {
+            Search.series = { $regex: `${Search.series}` }
+          }
+          if (Search.type === '') {
+            delete Search.type
+          } else {
+            Search.type = { $regex: `${Search.type}` }
+          }
+          if (Search.size === '') {
+            delete Search.size
+          } else {
+            Search.size = { $regex: `${Search.size}` }
+          }
         }
 
         const data = await db.collection('sedas').find(Search).sort({ _id: -1 }).limit(limit).skip(skips).toArray()
