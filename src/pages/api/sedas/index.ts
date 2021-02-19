@@ -15,7 +15,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const skips = limit * (p - 1)
 
         const Search = JSON.parse(String(search as any))
-        console.log(Search)
 
         if (Search !== null) {
           if (Search.brand === '') {
@@ -57,7 +56,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         break
       default:
-        res.status(405).end(`Method ${method} Not Allowed`)
+        res.status(405).end(`Method ${method} Not Allowed.`)
     }
   } catch (err) {
     res.status(500).json({ statusCode: 500, message: err.message })

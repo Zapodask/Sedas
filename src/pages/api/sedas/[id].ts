@@ -14,15 +14,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     switch (method) {
       case 'DELETE':
         if (key === process.env.KEY) {
-          await db.collection('sedas').deleteOne({ _id: Archetype.to(id, ObjectId) })
-
-          res.status(200)
+          db.collection('sedas').deleteOne({ _id: Archetype.to(id, ObjectId) })
+            .then(() => {
+              res.status(200).json({ message: 'Item deletado.' })
+            })
         } else {
           res.status(409).json({ message: 'Chave inválida.' })
         }
         break
       default:
-        res.status(405).end(`Method ${method} Not Allowed`)
+        res.status(405).end(`Method ${method} Not Allowed.`)
     }
   } catch (err) {
     res.status(500).json({ statusCode: 500, message: err.message })
