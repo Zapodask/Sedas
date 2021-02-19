@@ -38,7 +38,7 @@ const Home: React.FC = () => {
   const [imageModal, setImageModal] = useState<boolean>(false)
   const [imageModalContent, setImageModalContent] = useState<string>('')
   const [page, setPage] = useState<number>(1)
-  const [search, setSearch] = useState<Search>()
+  const [search, setSearch] = useState<Search | string>('')
 
   const openImage = async (image: string) => {
     await setImageModalContent(image)

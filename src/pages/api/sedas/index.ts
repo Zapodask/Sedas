@@ -15,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const skips = limit * (p - 1)
 
         const Search = JSON.parse(String(search as any))
+        console.log(Search)
 
         if (Search.brand === '') {
           delete Search.brand
