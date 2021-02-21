@@ -41,6 +41,7 @@ export const Table = styled.table`
   };
 
   th {
+    min-width: 100px;
     height: 50px;
     border: 1px solid black;
 
@@ -52,6 +53,13 @@ export const Table = styled.table`
 
   td {
     border: 1px solid black;
+
+    div {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
   };
 `
 

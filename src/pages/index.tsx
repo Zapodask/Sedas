@@ -136,7 +136,9 @@ const Home: React.FC = () => {
                 </MButton>
               </td>
               <td>
-                <Image onClick={() => openImage(seda.image)} src={seda.image} />
+                <div>
+                  <Image onClick={() => openImage(seda.image)} src={seda.image} />
+                </div>
               </td>
               <td>
                 {seda.brand}
