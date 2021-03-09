@@ -5,7 +5,7 @@ import { Form } from '@unform/web'
 import ImageInput from '@/components/imageInput'
 
 import { Container, Box, Input } from '@/styles/pages/add'
-// import Router from 'next/router'
+import Router from 'next/router'
 
 import ToBase64 from '@/services/toBase64'
 
@@ -20,26 +20,25 @@ interface Data {
 
 const Add = () => {
   async function handleSubmit (data: Data) {
-    console.log(data.image)
     if (data.image) {
       data.image = await ToBase64(data.image)
     }
-    console.log(data.image)
-    // fetch('/api/sedas', {
-    //   method: 'POST',
-    //   body: JSON.stringify(data)
-    // }).then(function (response) {
-    //   switch (response.status) {
-    //     case 200:
-    //       Router.push('/')
-    //       break
-    //     case 409:
-    //       alert('Chave inválida.')
-    //       break
-    //     default:
-    //       alert('Erro ao cadastrar.')
-    //   }
-    // })
+
+    fetch('/api/sedas', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    }).then(function (response) {
+      switch (response.status) {
+        case 200:
+          Router.push('/')
+          break
+        case 409:
+          alert('Chave inválida.')
+          break
+        default:
+          alert('Erro ao cadastrar.')
+      }
+    })
   }
 
   return (
