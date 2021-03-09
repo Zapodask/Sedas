@@ -20,25 +20,26 @@ interface Data {
 
 const Add = () => {
   async function handleSubmit (data: Data) {
+    console.log(data.image)
     if (data.image) {
       data.image = await ToBase64(data.image)
     }
-
-    fetch('/api/sedas', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    }).then(function (response) {
-      switch (response.status) {
-        case 200:
-          Router.push('/')
-          break
-        case 409:
-          alert('Chave inválida.')
-          break
-        default:
-          alert('Erro ao cadastrar.')
-      }
-    })
+    console.log(data.image)
+    // fetch('/api/sedas', {
+    //   method: 'POST',
+    //   body: JSON.stringify(data)
+    // }).then(function (response) {
+    //   switch (response.status) {
+    //     case 200:
+    //       Router.push('/')
+    //       break
+    //     case 409:
+    //       alert('Chave inválida.')
+    //       break
+    //     default:
+    //       alert('Erro ao cadastrar.')
+    //   }
+    // })
   }
 
   return (
