@@ -5,7 +5,7 @@ import { Form } from '@unform/web'
 import ImageInput from '@/components/imageInput'
 
 import { Container, Box, Input } from '@/styles/pages/add'
-import Router from 'next/router'
+// import Router from 'next/router'
 
 import ToBase64 from '@/services/toBase64'
 
