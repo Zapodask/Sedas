@@ -91,7 +91,10 @@ const Home: React.FC = () => {
         </Link>
       </header>
 
-      <Form onSubmit={(data: Search) => setSearch(data)}>
+      <Form onSubmit={(data: Search) => {
+        setSearch(data)
+        setPage(1)
+      }}>
         <Table>
           <tr>
             <th>Actions</th>
