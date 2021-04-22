@@ -60,7 +60,7 @@ const Home: React.FC = () => {
   // }
 
   return (
-    <Layout title='Sedas'>
+    <Layout>
       <Container>
         <main>
           {data.map((seda: Seda) =>
