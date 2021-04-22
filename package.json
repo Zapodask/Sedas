@@ -8,8 +8,6 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
     "@unform/core": "^2.1.4",
     "@unform/web": "^2.1.4",
     "archetype-js": "^0.6.1",
@@ -17,8 +15,11 @@
     "next": "latest",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-icons": "^4.2.0",
     "react-image-file-resizer": "^0.4.2",
+    "react-switch": "^6.0.0",
     "styled-components": "^5.2.1",
+    "styled-react-modal": "^2.1.0",
     "swr": "^0.4.1"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^5.1.7",
+    "@types/styled-react-modal": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
     "eslint": "7.12.1",

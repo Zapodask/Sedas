@@ -1,14 +1,22 @@
 import { AppProps } from 'next/app'
-import { ThemeProvider } from 'styled-components'
-
 import GlobalStyle from '../styles/global'
-import theme from '../styles/theme'
+
+import { ThemeProvider } from '@/contexts/ThemeContext'
+import { ModalProvider } from 'styled-react-modal'
+
+import { ModalBackground } from '@/styles/pages/_app'
+import { SearchProvider } from '@/contexts/SearchContext'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-      <GlobalStyle />
+    <ThemeProvider>
+      <ModalProvider backgroundComponent={ModalBackground}>
+        <SearchProvider>
+          <Component {...pageProps} />
+
+          <GlobalStyle />
+        </SearchProvider>
+      </ModalProvider>
     </ThemeProvider>
   )
 }

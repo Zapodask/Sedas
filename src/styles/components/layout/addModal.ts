@@ -1,0 +1,79 @@
+import styled from 'styled-components'
+
+export const SModal = {
+  overlay: {
+    background: 'none'
+  },
+
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    padding: 0,
+    outline: 'none',
+    border: '2px solid black',
+    borderRadius: '10px'
+  }
+}
+
+export const Container = styled.div`
+    min-width: 400px;
+    max-height: 100vh;
+    background: ${props => props.theme.colors.background};
+    color: ${props => props.theme.colors.text};
+    border: 2px solid black;
+    border-radius: 10px;
+    overflow: auto;
+
+    header {
+        width: 100%;
+        padding: 15px;
+        text-align: center;
+        background: ${props => props.theme.colors.secondary};
+        border-radius: 10px 10px 0 0;
+    }
+
+    main {
+        padding: 15px;
+        margin-top: 0;
+    }
+
+    footer {
+        padding: 15px;
+
+        div {
+            display: flex;
+            justify-content: space-around;
+
+            button {
+                font-size: 1.2rem;
+                padding: 10px;
+                outline: none;
+                border: none;
+                cursor: pointer;
+                border-radius: 10px;
+                border: 1px solid #000;
+                transition: 0.25s;
+            }
+
+            #close {
+                background: #adb5bd;
+
+                &:hover {
+                    background: #ba181b;
+                }
+            }
+
+            #submit {
+                background: #38b000;
+
+                &:hover {
+                    background: #008000;
+                }
+            }
+        }
+    }
+`
