@@ -35,6 +35,7 @@ const Modal = ({ showModal, setShowModal, children }: Props) => {
       beforeClose={beforeClose}
       onBackgroundClick={toggle}
       onEscapeKeydown={toggle}
+      opacity={opacity}
       backgroundProps={{ opacity }}
       allowScroll={true}
     >
