@@ -33,6 +33,12 @@ const Home: React.FC = () => {
     mutate()
   }, [page, search])
 
+  if (isValidating === true) return <h1>Carregando...</h1>
+
+  if (error) return <h1>Erro ao carregar</h1>
+
+  if (!data) return <h1>Carregando...</h1>
+
   // const handleDelete = () => {
   //   fetch('/api/sedas/' + id, {
   //     method: type,
@@ -57,11 +63,6 @@ const Home: React.FC = () => {
     <Layout>
       <Container>
         <main>
-            {isValidating === true ? <h1>Carregando...</h1> : null}
-
-            {error ? <h1>Erro ao carregar</h1> : null}
-
-            {!data ? <h1>Carregando...</h1> : null}
           {data.map((seda: Seda) =>
             <Card key={seda._id} seda={seda} />
           )}
