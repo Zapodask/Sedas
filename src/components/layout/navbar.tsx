@@ -41,12 +41,12 @@ const NavBar = () => {
                         <input
                             className='search'
                             placeholder='Pesquisar'
-                            onKeyUp={key => key.key === 'Enter' ? setSearch(inputSearch) : null}
-                            onChange={e => {
-                              setInputSearch(e.target.value)
+                            onKeyUp={key => key.key === 'Enter' ? () => {
+                              setSearch(inputSearch)
                               setPage(1)
                               setChecked(false)
-                            }}
+                            } : null}
+                            onChange={e => setInputSearch(e.target.value)}
                         />
                     </li>
                     <li>
