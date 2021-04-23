@@ -37,13 +37,11 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
   //   setImageModal(true)
   // }
 
-  const { data, error, mutate, isValidating } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
+  const { data, error, mutate } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
 
   useEffect(() => {
     mutate()
   }, [page, search])
-
-  if (isValidating === true && !data.initial) return <h1>Carregando...</h1>
 
   if (error) return <h1>Erro ao carregar</h1>
 
