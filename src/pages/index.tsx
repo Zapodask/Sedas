@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Layout from '@/components/layout'
 
 import { useFetch } from '@/hooks/useFetch'
@@ -27,9 +27,8 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
   // const [key, setKey] = useState<string>('')
   // const [imageModal, setImageModal] = useState<boolean>(false)
   // const [imageModalContent, setImageModalContent] = useState<string>('')
-  const [page, setPage] = useState<number>(1)
 
-  const { search } = useContext(SearchContext)
+  const { search, page, setPage } = useContext(SearchContext)
 
   // const openImage = async (image: string) => {
   //   await setImageModalContent(image)
@@ -76,13 +75,13 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
 
         <footer>
           <div>
-            <button disabled={page === 1} type='button' onClick={() => setPage((prev) => prev - 1)}>
+            <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
               <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
             </button>
 
             <h2>{page}</h2>
 
-            <button disabled={data.length < 12} type='button' onClick={() => setPage((prev) => prev + 1)}>
+            <button disabled={data.length < 12} type='button' onClick={() => setPage(page + 1)}>
               <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
             </button>
           </div>

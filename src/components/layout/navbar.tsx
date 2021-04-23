@@ -13,7 +13,7 @@ const NavBar = () => {
   const [inputSearch, setInputSearch] = useState<string>('')
 
   const { theme, toggleTheme } = useContext(ThemeContext)
-  const { setSearch } = useContext(SearchContext)
+  const { setSearch, setPage } = useContext(SearchContext)
 
   return (
         <>
@@ -26,7 +26,10 @@ const NavBar = () => {
                     <li>
                         <Switch
                             checked={theme.title === 'dark'}
-                            onChange={() => toggleTheme()}
+                            onChange={() => {
+                              toggleTheme()
+                              setChecked(false)
+                            }}
                             uncheckedIcon={false}
                             checkedIcon={false}
                             onColor='#3c096c'
@@ -39,7 +42,11 @@ const NavBar = () => {
                             className='search'
                             placeholder='Pesquisar'
                             onKeyUp={key => key.key === 'Enter' ? setSearch(inputSearch) : null}
-                            onChange={e => setInputSearch(e.target.value)}
+                            onChange={e => {
+                              setInputSearch(e.target.value)
+                              setPage(1)
+                              setChecked(false)
+                            }}
                         />
                     </li>
                     <li>
