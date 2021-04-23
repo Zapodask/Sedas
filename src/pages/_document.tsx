@@ -42,7 +42,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
 
-          <title>Sedas</title>
+          <title>'Sedas'</title>
 
           <link
             rel="stylesheet"

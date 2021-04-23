@@ -10,7 +10,17 @@ import Card from '@/components/card'
 import { SearchContext } from '@/contexts/SearchContext'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
-const Home: React.FC = () => {
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const preData = await (await fetch('https://sedas.vercel.app/api/sedas?page=1&&search=')).json()
+
+  return {
+    props: { preData }
+  }
+}
+
+const Home: React.FC = ({ preData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // const [confirmModal, setConfirmModal] = useState<boolean>(false)
   // const [id, setId] = useState<string>()
   // const [type, setType] = useState<string>('')
@@ -27,17 +37,13 @@ const Home: React.FC = () => {
   //   setImageModal(true)
   // }
 
-  const { data, error, mutate, isValidating } = useFetch(`sedas?page=${page}&&search=${search}`)
+  const { data, error, mutate } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
 
   useEffect(() => {
     mutate()
   }, [page, search])
 
-  if (isValidating === true) return <h1>Carregando...</h1>
-
   if (error) return <h1>Erro ao carregar</h1>
-
-  if (!data) return <h1>Carregando...</h1>
 
   // const handleDelete = () => {
   //   fetch('/api/sedas/' + id, {
@@ -63,7 +69,7 @@ const Home: React.FC = () => {
     <Layout>
       <Container>
         <main>
-          {data.map((seda: Seda) =>
+          {(data.initial ? data.initial : data).map((seda: Seda) =>
             <Card key={seda._id} seda={seda} />
           )}
         </main>
@@ -76,7 +82,7 @@ const Home: React.FC = () => {
 
             <h2>{page}</h2>
 
-            <button disabled={data.length < 10} type='button' onClick={() => setPage((prev) => prev + 1)}>
+            <button disabled={data.length < 12} type='button' onClick={() => setPage((prev) => prev + 1)}>
               <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
             </button>
           </div>

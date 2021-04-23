@@ -1,12 +1,12 @@
 import useSWR from 'swr'
 
-export function useFetch (url: string, revalidateOnFocus = false) {
-  const { data, error, mutate, isValidating } = useSWR(url, async (url) => {
+export function useFetch (url: string, initial?: any) {
+  const { data, error, mutate } = useSWR(url, async (url) => {
     const response = await fetch('/api/' + url)
     const data = await response.json()
 
     return data
-  }, { revalidateOnFocus })
+  }, { initialData: initial })
 
-  return { data, error, mutate, isValidating }
+  return { data, error, mutate }
 }
