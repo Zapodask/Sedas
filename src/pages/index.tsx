@@ -43,7 +43,7 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
     mutate()
   }, [page, search])
 
-  if (isValidating === true) return <h1>Carregando...</h1>
+  if (isValidating === true && !data.initial) return <h1>Carregando...</h1>
 
   if (error) return <h1>Erro ao carregar</h1>
 
