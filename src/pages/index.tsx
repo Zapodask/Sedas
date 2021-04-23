@@ -10,9 +10,9 @@ import Card from '@/components/card'
 import { SearchContext } from '@/contexts/SearchContext'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const preData = await (await fetch('https://sedas.vercel.app/api/sedas?page=1&&search=')).json()
 
   return {
@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-const Home: React.FC = ({ preData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   // const [confirmModal, setConfirmModal] = useState<boolean>(false)
   // const [id, setId] = useState<string>()
   // const [type, setType] = useState<string>('')
