@@ -16,7 +16,6 @@ const NavBar = () => {
   const { setSearch, setPage } = useContext(SearchContext)
 
   function search () {
-    console.log('a')
     setSearch(inputSearch)
     setPage(1)
     setChecked(false)
