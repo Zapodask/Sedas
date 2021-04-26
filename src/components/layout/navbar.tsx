@@ -15,6 +15,13 @@ const NavBar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext)
   const { setSearch, setPage } = useContext(SearchContext)
 
+  function search () {
+    console.log('a')
+    setSearch(inputSearch)
+    setPage(1)
+    setChecked(false)
+  }
+
   return (
         <>
             <Nav checked={checked} >
@@ -41,11 +48,7 @@ const NavBar = () => {
                         <input
                             className='search'
                             placeholder='Pesquisar'
-                            onKeyUp={key => key.key === 'Enter' ? () => {
-                              setSearch(inputSearch)
-                              setPage(1)
-                              setChecked(false)
-                            } : null}
+                            onKeyUp={key => key.key === 'Enter' ? search() : null}
                             onChange={e => setInputSearch(e.target.value)}
                         />
                     </li>

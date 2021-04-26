@@ -71,7 +71,6 @@ export const Nav = styled.nav<{ checked: boolean }>`
     #nav-toggle {
         position: absolute;
         top: -100px;
-        cursor: pointer;
     }
 
     .icon-burger {
@@ -80,6 +79,7 @@ export const Nav = styled.nav<{ checked: boolean }>`
         right: 5%;
         top: 50%;
         transform: translateY(-50%);
+        cursor: pointer;
 
         .line {
             width: 30px;

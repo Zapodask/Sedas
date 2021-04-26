@@ -32,6 +32,10 @@ export const Container = styled.div`
         padding: 15px;
         margin-top: 0;
 
+        div:nth-child(1) {
+            padding: 0 15px;
+        }
+
         .buttons {
             display: flex;
             justify-content: space-around;
