@@ -6,16 +6,12 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
 
     img {
-            width: 100%;
-            border-radius: 10px 10px 0 0;
-            cursor: pointer;
-
-            &:hover {
-                opacity: 0.9;
-            }
-        }
+        width: 100%;
+        overflow: hidden;
+    }
 
     div {
         height: 100%;
@@ -25,6 +21,11 @@ export const Container = styled.div`
         flex-direction: row;
         justify-content: space-around;
         place-items: center;
-        cursor: pointer;
+    }
+
+    &:hover {
+        img {
+            opacity: 0.9;
+        }
     }
 `

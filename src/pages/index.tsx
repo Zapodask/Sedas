@@ -21,20 +21,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // const [confirmModal, setConfirmModal] = useState<boolean>(false)
-  // const [id, setId] = useState<string>()
-  // const [type, setType] = useState<string>('')
-  // const [key, setKey] = useState<string>('')
-  // const [imageModal, setImageModal] = useState<boolean>(false)
-  // const [imageModalContent, setImageModalContent] = useState<string>('')
-
   const { search, page, setPage } = useContext(SearchContext)
-
-  // const openImage = async (image: string) => {
-  //   await setImageModalContent(image)
-
-  //   setImageModal(true)
-  // }
 
   const { data, error, mutate } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
 
@@ -43,26 +30,6 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
   }, [page, search])
 
   if (error) return <h1>Erro ao carregar</h1>
-
-  // const handleDelete = () => {
-  //   fetch('/api/sedas/' + id, {
-  //     method: type,
-  //     body: JSON.stringify({ key: key })
-  //   }).then(function (response) {
-  //     switch (response.status) {
-  //       case 200:
-  //         mutate()
-  //         break
-  //       case 409:
-  //         alert('Chave inválida.')
-  //         break
-  //       default:
-  //         alert('Erro ao deletar.')
-  //     }
-  //   })
-
-  //   setConfirmModal(false)
-  // }
 
   return (
     <Layout>
@@ -92,29 +59,3 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
 }
 
 export default Home
-
-// {/* <PageForm>
-//       <div>
-//         <IconButton onClick={() => setPage(prevState => prevState - 1)} disabled={page === 1} >
-//           <ArrowBackIosIcon />
-//         </IconButton>
-
-//         <h2>{page}</h2>
-
-//         <IconButton onClick={() => setPage(prevState => prevState + 1)} disabled={data.length < 10} >
-//           <ArrowForwardIosIcon />
-//         </IconButton>
-//       </div>
-//     </PageForm>
-
-// <ConfirmModal open={confirmModal} onClose={() => setConfirmModal(false)} >
-//   <main>
-//     <h1>Chave:</h1>
-//     <input onChange={e => setKey(e.target.value)} /><br />
-//     <button onClick={handleDelete} >Submit</button>
-//   </main>
-// </ConfirmModal>
-
-// <ImageModal open={imageModal} onClose={() => setImageModal(false)} >
-//   <img src={imageModalContent} />
-// </ImageModal> */}

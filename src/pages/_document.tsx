@@ -45,12 +45,7 @@ export default class MyDocument extends Document {
           <title>Sedas</title>
 
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          />
-
-          <link
-            href="https://fonts.googleapis.com/css?family=Roboto:400,500,700"
+            href="https://fonts.googleapis.com/css?family=Roboto:500"
             rel="stylesheet"
           />
 

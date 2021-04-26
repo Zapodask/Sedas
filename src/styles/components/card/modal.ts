@@ -9,6 +9,17 @@ export const Container = styled.div`
     border-radius: 10px;
     overflow: auto;
 
+    button {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid #000;
+        transition: 0.25s;
+    }
+
     header {
         width: 100%;
         padding: 15px;
@@ -20,6 +31,35 @@ export const Container = styled.div`
     main {
         padding: 15px;
         margin-top: 0;
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+
+            #delete {
+                background: #d00000;
+
+                &:hover {
+                    background: #9d0208;
+                }
+            }
+
+            #edit {
+                background: #4361ee;
+
+                &:hover {
+                    background: #3f37c9;
+                }
+            }
+
+            #submit {
+                background: #38b000;
+
+                &:hover {
+                    background: #008000;
+                }
+            }
+        }
     }
 
     footer {
@@ -29,30 +69,11 @@ export const Container = styled.div`
             display: flex;
             justify-content: space-around;
 
-            button {
-                font-size: 1.2rem;
-                padding: 10px 20px;
-                outline: none;
-                border: none;
-                cursor: pointer;
-                border-radius: 10px;
-                border: 1px solid #000;
-                transition: 0.25s;
-            }
-
             #close {
                 background: #adb5bd;
 
                 &:hover {
                     background: red;
-                }
-            }
-
-            #submit {
-                background: #38b000;
-
-                &:hover {
-                    background: #008000;
                 }
             }
         }

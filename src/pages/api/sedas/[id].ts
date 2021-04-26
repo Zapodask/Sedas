@@ -12,15 +12,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { key } = await JSON.parse(req.body)
 
     switch (method) {
-      case 'DELETE':
+      case 'PUT':
         if (key === process.env.KEY) {
-          db.collection('sedas').deleteOne({ _id: Archetype.to(id, ObjectId) })
+          const data = await JSON.parse(req.body)
+          delete data.key
+          db.collection('sedas').updateOne({ _id: Archetype.to(id, ObjectId) }, { $set: data })
             .then(() => {
-              res.status(200).json({ message: 'Item deletado.' })
+              res.status(200).json({ message: 'Seda modificada.' })
             })
         } else {
           res.status(409).json({ message: 'Chave inválida.' })
         }
+
+        break
+      case 'DELETE':
+        if (key === process.env.KEY) {
+          db.collection('sedas').deleteOne({ _id: Archetype.to(id, ObjectId) })
+            .then(() => {
+              res.status(200).json({ message: 'Seda deletada.' })
+            })
+        } else {
+          res.status(409).json({ message: 'Chave inválida.' })
+        }
+
         break
       default:
         res.status(405).end(`Method ${method} Not Allowed.`)

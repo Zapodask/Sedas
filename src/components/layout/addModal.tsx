@@ -8,19 +8,11 @@ import ImageInput from '@/components/imageInput'
 import ToBase64 from '@/services/toBase64'
 
 import Router from 'next/router'
+import { Data } from '@/interfaces/index'
 
 interface Props {
     open: boolean
     setOpen: (open: boolean) => void
-}
-
-interface Data {
-  image: unknown | string
-  brand: string
-  series: string
-  type: string
-  size: string
-  key: string
 }
 
 const AddModal = ({ open, setOpen }: Props) => {
@@ -37,7 +29,6 @@ const AddModal = ({ open, setOpen }: Props) => {
       method: 'POST',
       body: JSON.stringify(data)
     }).then((response) => {
-      console.log(response)
       switch (response.status) {
         case 200:
           Router.reload()
@@ -54,10 +45,7 @@ const AddModal = ({ open, setOpen }: Props) => {
   }
 
   return (
-    <Modal
-        showModal={open}
-        setShowModal={setOpen}
-    >
+    <Modal showModal={open} setShowModal={setOpen}>
       <Container>
         <Form onSubmit={submit}>
           <header>
@@ -70,13 +58,13 @@ const AddModal = ({ open, setOpen }: Props) => {
               <Input name='series' label='Série' /><br />
               <Input name='type' label='Tipo' /><br />
               <Input name='size' label='Tamanho' /><br />
-              <Input name='key' label='Chave' /><br />
+              <Input name='key' label='Chave' required /><br />
             </div>
           </main>
           <footer>
             <div>
-              <button id='close' type='button' onClick={close} >Fechar</button>
-              <button id='submit' type='submit' >Adicionar</button>
+              <button id='close' type='button' onClick={close}>Fechar</button>
+              <button id='submit' type='submit'>Adicionar</button>
             </div>
           </footer>
         </Form>

@@ -11,11 +11,12 @@ import { Container } from '@/styles/components/imageInput'
 
 interface Props {
   name: string;
+  disabled?: boolean;
 }
 
 type InputProps = JSX.IntrinsicElements['input'] & Props;
 
-const ImageInput: React.FC<InputProps> = ({ name, ...rest }) => {
+const ImageInput: React.FC<InputProps> = ({ name, disabled, ...rest }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { fieldName, registerField, defaultValue } = useField(name)
@@ -54,7 +55,7 @@ const ImageInput: React.FC<InputProps> = ({ name, ...rest }) => {
       <div>
         {preview && <img src={preview} alt='Preview' width='100' />}
       </div>
-      <label htmlFor={fieldName}>Escolher imagem</label>
+      {disabled === true ? null : <label htmlFor={fieldName}>Escolher imagem</label>}
       <input type='file' id={fieldName} ref={inputRef} onChange={handlePreview} {...rest} />
     </Container>
   )
