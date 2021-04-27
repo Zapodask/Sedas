@@ -16,7 +16,7 @@ interface Props {
 export const ThemeContext = createContext({} as ThemeContextData)
 
 export const ThemeProvider = ({ children }: Props) => {
-  const [theme, setTheme] = useState<DefaultTheme>(Light)
+  const [theme, setTheme] = useState<DefaultTheme>(Dark)
 
   function toggleTheme () {
     setTheme(theme.title === 'light' ? Dark : Light)
