@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    min-width: 400px;
+    min-width: 300px;
     max-height: 100vh;
     background: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.text};
@@ -18,8 +18,7 @@ export const Container = styled.div`
     }
 
     main {
-        padding: 15px;
-        margin-top: 0;
+        padding: 0 15px;
     }
 
     footer {

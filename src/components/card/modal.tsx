@@ -75,7 +75,7 @@ const CardModal = ({ open, setOpen, seda }: Props) => {
                   </header>
                   <main>
                       <div>
-                          <ImageInput name='image' disabled={!editable} /><br />
+                          <ImageInput name='image' disabled={!editable} />
                           <Input name='brand' label='Marca' disabled={!editable} /><br />
                           <Input name='series' label='Série' disabled={!editable} /><br />
                           <Input name='type' label='Tipo' disabled={!editable} /><br />

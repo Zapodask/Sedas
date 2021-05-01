@@ -42,14 +42,10 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
 
-          <title>Sedas</title>
-
           <link
             href="https://fonts.googleapis.com/css?family=Roboto:500"
             rel="stylesheet"
           />
-
-          <script data-ad-client="ca-pub-2600546608173443" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         </Head>
         <body>
           <Main />

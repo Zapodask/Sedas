@@ -10,8 +10,7 @@ export const Container = styled.div`
         padding: 10px 0;
 
         img {
-            width: 200px;
-            height: 200px;
+            width: 100%;
             border: 2px solid #000;
         }
     }
@@ -25,7 +24,7 @@ export const Container = styled.div`
         border: 2px solid #000;
         border-radius: 15px;
         width: 200px;
-        margin: 0 auto;
+        margin: 10px auto 0;
     }
 
     input {
