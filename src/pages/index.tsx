@@ -33,6 +33,24 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
 
   if (error) return <h1>Erro ao carregar</h1>
 
+  const pagination = () => {
+    return (
+      <footer>
+        <div>
+          <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
+            <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
+          </button>
+
+          <h2>{page}</h2>
+
+          <button disabled={data.length < 12} type='button' onClick={() => setPage(page + 1)}>
+            <AiOutlineRight size={25} style={{ 'pointer' }} />
+          </button>
+        </div>
+      </footer>
+    )
+  }
+
   return (
     <>
       <Head>
@@ -42,25 +60,15 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
         <Container>
           {data.initial && page !== 1 || data.initial && search !== '' ? <h1>Carregando...</h1> : (
             <>
+              <pagination />
+  
               <main>
                 {(data.initial ? data.initial : data).map((seda: Seda) =>
                   <Card key={seda._id} seda={seda} />
                 )}
               </main>
 
-              <footer>
-                <div>
-                  <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
-                    <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
-                  </button>
-
-                  <h2>{page}</h2>
-
-                  <button disabled={data.length < 12} type='button' onClick={() => setPage(page + 1)}>
-                    <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
-                  </button>
-                </div>
-              </footer>
+              <pagination />
             </>
           )}
         </Container>
