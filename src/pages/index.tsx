@@ -40,7 +40,7 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
       </Head>
       <Layout>
         <Container>
-          {data.initial && page !== 1 ? <h1>Carregando...</h1> : (
+          {data.initial && page !== 1 || data.initial && search !== '' ? <h1>Carregando...</h1> : (
             <>
               <main>
                 {(data.initial ? data.initial : data).map((seda: Seda) =>
