@@ -33,7 +33,7 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
 
   if (error) return <h1>Erro ao carregar</h1>
 
-  const pagination = () => {
+  function pagination () {
     return (
       <footer>
         <div>
