@@ -33,24 +33,6 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
 
   if (error) return <h1>Erro ao carregar</h1>
 
-  function pagination () {
-    return (
-      <footer>
-        <div>
-          <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
-            <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
-          </button>
-
-          <h2>{page}</h2>
-
-          <button disabled={data.length < 12} type='button' onClick={() => setPage(page + 1)}>
-            <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
-          </button>
-        </div>
-      </footer>
-    )
-  }
-
   return (
     <>
       <Head>
@@ -60,7 +42,7 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
         <Container>
           {data.initial && page !== 1 || data.initial && search !== '' ? <h1>Carregando...</h1> : (
             <>
-              <pagination />
+              <Pagination length={data.length} />
   
               <main>
                 {(data.initial ? data.initial : data).map((seda: Seda) =>
@@ -68,7 +50,7 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
                 )}
               </main>
 
-              <pagination />
+              <Pagination length={data.length} />
             </>
           )}
         </Container>
@@ -76,5 +58,29 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
     </>
   )
 }
+
+interface Props {
+  length: number
+}
+
+  const Pagination = ({ length }: Props) => {
+    const { page, setPage } = useContext(SearchContext)
+    
+    return (
+      <footer>
+        <div>
+          <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
+            <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
+          </button>
+
+          <h2>{page}</h2>
+
+          <button disabled={length < 12} type='button' onClick={() => setPage(page + 1)}>
+            <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
+          </button>
+        </div>
+      </footer>
+    )
+  }
 
 export default Home
