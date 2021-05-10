@@ -499,7 +499,7 @@ archetype-js@^0.6.1:
   dependencies:
     debug "2.6.3"
     lodash "4.16.4"
-    mpath "0.5.1"
+    mpath "0.2.1"
     standard-error "1.1.0"
 
 argparse@^1.0.7:
@@ -2145,9 +2145,9 @@ mongodb@^3.6.3:
   optionalDependencies:
     saslprep "^1.0.0"
 
-mpath@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.5.1.tgz#3a4e829359801de96309c27a6b2e102e89f9e96e"
+mpath@0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.8.3.tgz#3a4e829359801de96309c27a6b2e102e89f9e96e"
   integrity sha1-Ok6Ck1mAHeljCcJ6ay4QLon56W4=
 
 ms@0.7.2:
