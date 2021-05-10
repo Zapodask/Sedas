@@ -44,7 +44,7 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
           <h2>{page}</h2>
 
           <button disabled={data.length < 12} type='button' onClick={() => setPage(page + 1)}>
-            <AiOutlineRight size={25} style={{ 'pointer' }} />
+            <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
           </button>
         </div>
       </footer>
