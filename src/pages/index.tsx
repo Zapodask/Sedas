@@ -15,7 +15,7 @@ import { SearchContext } from '@/contexts/SearchContext'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const preData = await (await fetch('https://sedas.vercel.app/api/sedas?page=1&&search=')).json()
+  const preData = await (await fetch('https://sedas.vercel.app/api/sedas?search=')).json()
 
   return {
     props: { preData }
@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { search, page } = useContext(SearchContext)
 
-  const { data, error, mutate } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
+  const { data, error, mutate } = useFetch(`sedas?search=${search}`, { initial: preData })
 
   useEffect(() => {
     mutate()
