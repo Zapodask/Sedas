@@ -40,7 +40,7 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
       </Head>
       <Layout>
         <Container>
-          {(data.initial && page !== 1) || (data.initial && search !== '') ? <h1>Carregando...</h1> : (
+          {preData ? <h1>Carregando...</h1> : (
             <>
               <Pagination length={data.length} />
               <main>
