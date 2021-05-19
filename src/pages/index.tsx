@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-expressions */
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import Layout from '@/components/layout'
 
+import Head from 'next/head'
 import { useFetch } from '@/hooks/useFetch'
-import { Container } from '@/styles/pages/index'
 
+import { Container } from '@/styles/pages/index'
 import { Seda } from '@/interfaces/index'
-import Card from '@/components/card'
+
+import { Card } from '@/components/card'
+import { Pagination } from '@/components/pagination'
 
 import { SearchContext } from '@/contexts/SearchContext'
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
-
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import Head from 'next/head'
 
 export const getStaticProps: GetStaticProps = async () => {
   const preData = await (await fetch('https://sedas.vercel.app/api/sedas?page=1&&search=')).json()
@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { search, page, setPage } = useContext(SearchContext)
+  const { search, page } = useContext(SearchContext)
 
   const { data, error, mutate } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
 
@@ -40,10 +40,9 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
       </Head>
       <Layout>
         <Container>
-          {data.initial && page !== 1 || data.initial && search !== '' ? <h1>Carregando...</h1> : (
+          {(data.initial && page !== 1) || (data.initial && search !== '') ? <h1>Carregando...</h1> : (
             <>
               <Pagination length={data.length} />
-  
               <main>
                 {(data.initial ? data.initial : data).map((seda: Seda) =>
                   <Card key={seda._id} seda={seda} />
@@ -58,29 +57,5 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
     </>
   )
 }
-
-interface Props {
-  length: number
-}
-
-  const Pagination = ({ length }: Props) => {
-    const { page, setPage } = useContext(SearchContext)
-    
-    return (
-      <footer>
-        <div>
-          <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
-            <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
-          </button>
-
-          <h2>{page}</h2>
-
-          <button disabled={length < 12} type='button' onClick={() => setPage(page + 1)}>
-            <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
-          </button>
-        </div>
-      </footer>
-    )
-  }
 
 export default Home

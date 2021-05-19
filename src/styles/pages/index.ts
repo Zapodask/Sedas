@@ -5,31 +5,10 @@ export const Container = styled.div`
   margin-top: 60px;
 
   main {
+    margin: 0;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 1rem;
-  }
-
-  footer {
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-
-    div {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-
-      button {
-        border:none;
-        background: none;
-        outline: none;
-      }
-
-      h2 {
-        margin: 0 5px;
-      }
-    }
   }
 `

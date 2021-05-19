@@ -8,7 +8,7 @@ interface Props {
   seda: Seda
 }
 
-const Card = ({ seda }: Props) => {
+export const Card = ({ seda }: Props) => {
   const [openModal, setOpenModal] = useState(false)
 
   return (
@@ -25,5 +25,3 @@ const Card = ({ seda }: Props) => {
     </>
   )
 }
-
-export default Card
