@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import { NextApiRequest, NextApiResponse } from 'next'
 import { connectToDatabase } from '@/services/mongodb'
 
@@ -9,7 +8,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     switch (method) {
       case 'GET':
-        const { search } = req.query
+        const { page, search } = req.query
+
+        const p: any = page
+        const limit = 12
+        const skips = limit * (p - 1)
 
         const data = await db.collection('sedas').find(
           search === '' ? {} : {
@@ -18,6 +21,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             ]
           })
           .sort({ _id: -1 })
+          .limit(limit)
+          .skip(skips)
           .toArray()
 
         res.status(200).json(data)

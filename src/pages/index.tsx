@@ -1,31 +1,30 @@
-/* eslint-disable no-unused-expressions */
 import { useContext, useEffect } from 'react'
 import Layout from '@/components/layout'
 
-import Head from 'next/head'
 import { useFetch } from '@/hooks/useFetch'
-
 import { Container } from '@/styles/pages/index'
-import { Seda } from '@/interfaces/index'
 
+import { Seda } from '@/interfaces/index'
 import { Card } from '@/components/card'
-import { Pagination } from '@/components/pagination'
 
 import { SearchContext } from '@/contexts/SearchContext'
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const preData = await (await fetch('https://sedas.vercel.app/api/sedas?search=')).json()
+  const preData = await (await fetch('https://sedas.vercel.app/api/sedas?page=1&&search=')).json()
 
   return {
     props: { preData }
   }
 }
 
-const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { search, page } = useContext(SearchContext)
+const Index: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { search, page, setPage } = useContext(SearchContext)
 
-  const { data, error, mutate } = useFetch(`sedas?search=${search}`, { initial: preData })
+  const { data, error, mutate } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
 
   useEffect(() => {
     mutate()
@@ -40,16 +39,27 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
       </Head>
       <Layout>
         <Container>
-          {preData ? <h1>Carregando...</h1> : (
+          {(data.initial && page !== 1) || (data.initial && search) !== '' ? <h1>Carregando...</h1> : (
             <>
-              <Pagination length={data.length} />
               <main>
                 {(data.initial ? data.initial : data).map((seda: Seda) =>
                   <Card key={seda._id} seda={seda} />
                 )}
               </main>
 
-              <Pagination length={data.length} />
+              <footer>
+                <div>
+                  <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
+                    <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
+                  </button>
+
+                  <h2>{page}</h2>
+
+                  <button disabled={data.length < 12} type='button' onClick={() => setPage(page + 1)}>
+                    <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
+                  </button>
+                </div>
+              </footer>
             </>
           )}
         </Container>
@@ -58,4 +68,4 @@ const Home: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPro
   )
 }
 
-export default Home
+export default Index
