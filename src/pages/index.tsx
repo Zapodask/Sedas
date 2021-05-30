@@ -8,7 +8,7 @@ import { Seda } from '@/interfaces/index'
 import { Card } from '@/components/card'
 
 import { SearchContext } from '@/contexts/SearchContext'
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+import { Pagination } from './../components/pagination'
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Index: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { search, page, setPage } = useContext(SearchContext)
+  const { search, page } = useContext(SearchContext)
 
   const { data, error, mutate } = useFetch(`sedas?page=${page}&&search=${search}`, { initial: preData })
 
@@ -41,25 +41,15 @@ const Index: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPr
         <Container>
           {(data.initial && page !== 1) || (data.initial && search) !== '' ? <h1>Carregando...</h1> : (
             <>
+              <Pagination length={data.length} />
+
               <main>
                 {(data.initial ? data.initial : data).map((seda: Seda) =>
                   <Card key={seda._id} seda={seda} />
                 )}
               </main>
 
-              <footer>
-                <div>
-                  <button disabled={page === 1} type='button' onClick={() => setPage(page - 1)}>
-                    <AiOutlineLeft size={25} style={{ cursor: 'pointer' }} />
-                  </button>
-
-                  <h2>{page}</h2>
-
-                  <button disabled={data.length < 12} type='button' onClick={() => setPage(page + 1)}>
-                    <AiOutlineRight size={25} style={{ cursor: 'pointer' }} />
-                  </button>
-                </div>
-              </footer>
+              <Pagination length={data.length} />
             </>
           )}
         </Container>
