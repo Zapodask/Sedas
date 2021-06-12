@@ -30,6 +30,10 @@ const Index: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPr
     mutate()
   }, [page, search])
 
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+
   if (error) return <h1>Erro ao carregar</h1>
 
   return (
@@ -39,7 +43,7 @@ const Index: React.FC = ({ preData }: InferGetStaticPropsType<typeof getStaticPr
       </Head>
       <Layout>
         <Container>
-          {(data.initial && page !== 1) || (data.initial && search) !== '' ? <h1>Carregando...</h1> : (
+          {(data.initial && page !== 1) || (data.initial && search !== '') ? <h1>Carregando...</h1> : (
             <>
               <Pagination length={data.length} />
 

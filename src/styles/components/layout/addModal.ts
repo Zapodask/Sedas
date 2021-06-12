@@ -14,7 +14,6 @@ export const Container = styled.div`
         padding: 15px;
         text-align: center;
         background: ${props => props.theme.colors.secondary};
-        border-radius: 10px 10px 0 0;
     }
 
     main {

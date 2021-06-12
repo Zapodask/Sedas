@@ -6,8 +6,8 @@ export const Container = styled.div`
     nav {
         width: 100%;
         height: 55px;
-        background: black;
-        color: white;
+        background: #111;
+        color: #FFF;
 
         div {
             width: 100%;
@@ -18,7 +18,6 @@ export const Container = styled.div`
     }
 
     main {
-        margin-top: 50px;
         width: 100%;
         max-width: 1366px;
         margin-left: auto;
